@@ -32,12 +32,12 @@
     <meta name="theme-color" content="#e10600">
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-64XE6B1CQR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-64XE6B1CQR');
     </script>
     
     <!-- Google AdSense -->
@@ -601,6 +601,11 @@
         function startGame() {
             if (isWaiting || isReady) return;
 
+            // GA4 Event: Game Started
+            gtag('event', 'game_start', {
+                'event_category': 'engagement'
+            });
+
             resultDiv.style.display = 'none';
             gameArea.className = 'game-area waiting';
             gameText.textContent = '🔴🔴🔴🔴🔴';
@@ -670,6 +675,13 @@
             resultMessage.textContent = getResultMessage(reactionTime);
             resultDiv.style.display = 'block';
             
+            // GA4 Event: Game Completed
+            gtag('event', 'game_complete', {
+                'event_category': 'engagement',
+                'reaction_time': reactionTime,
+                'performance_level': reactionTime < 200 ? 'excellent' : reactionTime < 300 ? 'good' : 'average'
+            });
+            
             // Vibrate on mobile for feedback
             if ('vibrate' in navigator && reactionTime < 250) {
                 navigator.vibrate([50, 30, 100]);
@@ -689,6 +701,12 @@
         });
 
         function shareKakao() {
+            // GA4 Event: Share Attempted
+            gtag('event', 'share', {
+                'method': 'kakao',
+                'content_type': 'game_result'
+            });
+            
             if (typeof Kakao === 'undefined') {
                 // 카카오 SDK가 없을 때 대체 방법
                 let time = resultTime.textContent;
