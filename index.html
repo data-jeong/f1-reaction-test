@@ -37,7 +37,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-64XE6B1CQR');
+      
+      // Enhanced Measurement와 검색어 추적 활성화
+      gtag('config', 'G-64XE6B1CQR', {
+        'enhanced_measurement': true,
+        'custom_map.dimension1': 'search_keyword',
+        'custom_map.dimension2': 'referrer_source'
+      });
     </script>
     
     <!-- Google AdSense -->
@@ -663,6 +669,11 @@
 
             localStorage.setItem('reactionScores', JSON.stringify(scores));
             localStorage.setItem('reactionAttempts', attempts);
+            
+            // 최고 기록 갱신 체크
+            if (window.trackNewRecord) {
+                window.trackNewRecord(reactionTime);
+            }
 
             gameArea.className = 'game-area';
             gameText.textContent = 'START ENGINE';
@@ -738,6 +749,81 @@
         }
 
         updateStats();
+        
+        // 검색어 및 유입 경로 추적
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParams = {
+            utm_source: urlParams.get('utm_source'),
+            utm_medium: urlParams.get('utm_medium'),
+            utm_campaign: urlParams.get('utm_campaign'),
+            utm_term: urlParams.get('utm_term'),
+            ref: document.referrer
+        };
+        
+        // 검색 엔진별 검색어 추출
+        let searchKeyword = '';
+        let referrerURL = null;
+        if (document.referrer) {
+            try {
+                referrerURL = new URL(document.referrer);
+                
+                // Google
+                if (referrerURL.hostname.includes('google')) {
+                    searchKeyword = referrerURL.searchParams.get('q') || referrerURL.searchParams.get('query') || '';
+                }
+                // Naver
+                else if (referrerURL.hostname.includes('naver')) {
+                    searchKeyword = referrerURL.searchParams.get('query') || '';
+                }
+                // Daum
+                else if (referrerURL.hostname.includes('daum')) {
+                    searchKeyword = referrerURL.searchParams.get('q') || '';
+                }
+            } catch (e) {
+                console.log('Invalid referrer URL');
+            }
+        }
+        
+        // 유입 정보 이벤트 전송
+        if (searchKeyword || searchParams.utm_source || document.referrer) {
+            gtag('event', 'traffic_source', {
+                'event_category': 'acquisition',
+                'search_keyword': searchKeyword || searchParams.utm_term || '(not set)',
+                'referrer_source': referrerURL?.hostname || '(direct)',
+                'utm_source': searchParams.utm_source || '(not set)',
+                'utm_medium': searchParams.utm_medium || '(not set)',
+                'utm_campaign': searchParams.utm_campaign || '(not set)'
+            });
+        }
+        
+        // GA4: 페이지 체류 시간 추적
+        let pageStartTime = Date.now();
+        window.addEventListener('beforeunload', () => {
+            let timeSpent = Math.round((Date.now() - pageStartTime) / 1000);
+            gtag('event', 'page_time_spent', {
+                'event_category': 'engagement',
+                'time_seconds': timeSpent
+            });
+        });
+        
+        // GA4: 30초마다 활성 사용자 추적
+        setInterval(() => {
+            gtag('event', 'user_active', {
+                'event_category': 'engagement'
+            });
+        }, 30000);
+        
+        // GA4: 최고 기록 갱신 추적
+        window.trackNewRecord = function(time) {
+            let previousBest = scores.length > 0 ? Math.min(...scores) : Infinity;
+            if (time < previousBest) {
+                gtag('event', 'new_personal_record', {
+                    'event_category': 'achievement',
+                    'new_record': time,
+                    'previous_record': previousBest
+                });
+            }
+        };
     </script>
 </body>
 </html>
