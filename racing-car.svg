@@ -1,96 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <!-- Background -->
-  <rect width="1200" height="630" fill="#0f0f0f"/>
-  
-  <!-- Racing track pattern -->
+  <!-- Background gradient -->
   <defs>
-    <pattern id="checkerboard" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="20" height="20" fill="#1a1a1a"/>
-      <rect x="20" y="20" width="20" height="20" fill="#1a1a1a"/>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a0000;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="carBodyGradient" cx="50%" cy="30%">
+      <stop offset="0%" style="stop-color:#ff0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cc0000;stop-opacity:1" />
+    </radialGradient>
+    
+    <linearGradient id="wheelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#333333;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <pattern id="carbonFiber" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="#1a1a1a"/>
+      <rect x="2" y="2" width="2" height="2" fill="#1a1a1a"/>
+      <rect x="0" y="2" width="2" height="2" fill="#0f0f0f"/>
+      <rect x="2" y="0" width="2" height="2" fill="#0f0f0f"/>
     </pattern>
   </defs>
   
-  <!-- Checkered flag strip at top -->
-  <rect x="0" y="0" width="1200" height="60" fill="url(#checkerboard)"/>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
   
-  <!-- Speed lines effect -->
-  <g opacity="0.3">
-    <line x1="0" y1="200" x2="400" y2="315" stroke="#e10600" stroke-width="2"/>
-    <line x1="0" y1="250" x2="400" y2="315" stroke="#e10600" stroke-width="2"/>
-    <line x1="0" y1="300" x2="400" y2="315" stroke="#e10600" stroke-width="2"/>
-    <line x1="0" y1="350" x2="400" y2="315" stroke="#e10600" stroke-width="2"/>
-    <line x1="0" y1="400" x2="400" y2="315" stroke="#e10600" stroke-width="2"/>
+  <!-- Grid pattern -->
+  <g opacity="0.1">
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e10600" stroke-width="0.5"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Speed lines with gradient -->
+  <g opacity="0.6">
+    <linearGradient id="speedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e10600;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#e10600;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e10600;stop-opacity:0" />
+    </linearGradient>
+    <line x1="0" y1="315" x2="400" y2="315" stroke="url(#speedGradient)" stroke-width="3"/>
+    <line x1="0" y1="280" x2="450" y2="315" stroke="url(#speedGradient)" stroke-width="2"/>
+    <line x1="0" y1="350" x2="450" y2="315" stroke="url(#speedGradient)" stroke-width="2"/>
+    <line x1="0" y1="250" x2="500" y2="315" stroke="url(#speedGradient)" stroke-width="1.5"/>
+    <line x1="0" y1="380" x2="500" y2="315" stroke="url(#speedGradient)" stroke-width="1.5"/>
   </g>
   
   <!-- F1 Racing Car -->
-  <g transform="translate(600, 315)">
-    <!-- Shadow -->
-    <ellipse cx="0" cy="60" rx="180" ry="20" fill="#000" opacity="0.5"/>
+  <g transform="translate(600, 350)">
+    <!-- Ground reflection -->
+    <ellipse cx="0" cy="50" rx="200" ry="30" fill="#000" opacity="0.6" filter="url(#glow)"/>
     
-    <!-- Rear wing -->
-    <rect x="-120" y="-40" width="80" height="10" fill="#333" stroke="#e10600" stroke-width="2"/>
-    <rect x="-115" y="-50" width="70" height="10" fill="#e10600"/>
-    
-    <!-- Main body -->
-    <path d="M -150 0 L -100 -20 L 100 -20 L 150 0 L 150 20 L 100 30 L -100 30 L -150 20 Z" 
-          fill="#e10600" stroke="#fff" stroke-width="2"/>
-    
-    <!-- Cockpit -->
-    <ellipse cx="0" cy="-5" rx="40" ry="25" fill="#1a1a1a" stroke="#fff" stroke-width="2"/>
-    
-    <!-- Driver helmet -->
-    <ellipse cx="0" cy="-5" rx="20" ry="15" fill="#fff"/>
-    <path d="M -20 -5 Q 0 -8 20 -5" fill="#000" opacity="0.3"/>
-    
-    <!-- Front wing -->
-    <rect x="100" y="-10" width="50" height="8" fill="#333" stroke="#e10600" stroke-width="2"/>
-    <rect x="105" y="-15" width="40" height="5" fill="#e10600"/>
-    
-    <!-- Wheels -->
-    <g>
-      <!-- Rear wheels -->
-      <ellipse cx="-80" cy="25" rx="25" ry="35" fill="#1a1a1a" stroke="#333" stroke-width="3"/>
-      <ellipse cx="-80" cy="25" rx="15" ry="25" fill="#333"/>
-      
-      <!-- Front wheels -->
-      <ellipse cx="80" cy="20" rx="20" ry="30" fill="#1a1a1a" stroke="#333" stroke-width="3"/>
-      <ellipse cx="80" cy="20" rx="12" ry="20" fill="#333"/>
+    <!-- Rear wheels with better detail -->
+    <g transform="translate(-100, 15)">
+      <!-- Tire -->
+      <ellipse cx="0" cy="0" rx="30" ry="40" fill="url(#wheelGradient)"/>
+      <!-- Rim -->
+      <ellipse cx="0" cy="0" rx="20" ry="28" fill="#666" stroke="#999" stroke-width="1"/>
+      <!-- Spokes -->
+      <g stroke="#999" stroke-width="2" fill="none">
+        <line x1="0" y1="-20" x2="0" y2="20"/>
+        <line x1="-14" y1="-14" x2="14" y2="14"/>
+        <line x1="-14" y1="14" x2="14" y2="-14"/>
+        <line x1="-20" y1="0" x2="20" y2="0"/>
+      </g>
+      <!-- Center cap -->
+      <circle cx="0" cy="0" r="8" fill="#e10600"/>
     </g>
     
-    <!-- Racing number -->
-    <circle cx="0" cy="5" r="20" fill="#fff" stroke="#000" stroke-width="2"/>
-    <text x="0" y="12" text-anchor="middle" font-family="Arial Black" font-size="24" font-weight="900" fill="#000">1</text>
+    <!-- Front wheels -->
+    <g transform="translate(100, 10)">
+      <ellipse cx="0" cy="0" rx="25" ry="35" fill="url(#wheelGradient)"/>
+      <ellipse cx="0" cy="0" rx="16" ry="24" fill="#666" stroke="#999" stroke-width="1"/>
+      <g stroke="#999" stroke-width="1.5" fill="none">
+        <line x1="0" y1="-16" x2="0" y2="16"/>
+        <line x1="-11" y1="-11" x2="11" y2="11"/>
+        <line x1="-11" y1="11" x2="11" y2="-11"/>
+        <line x1="-16" y1="0" x2="16" y2="0"/>
+      </g>
+      <circle cx="0" cy="0" r="6" fill="#e10600"/>
+    </g>
     
-    <!-- Details -->
-    <line x1="-100" y1="0" x2="100" y2="0" stroke="#fff" stroke-width="1" opacity="0.5"/>
-    <circle cx="-50" cy="10" r="3" fill="#ffd700"/>
-    <circle cx="50" cy="10" r="3" fill="#ffd700"/>
+    <!-- Rear wing with detail -->
+    <g transform="translate(-120, -50)">
+      <rect x="0" y="10" width="80" height="15" fill="url(#carbonFiber)" stroke="#e10600" stroke-width="1"/>
+      <rect x="5" y="0" width="70" height="10" fill="#e10600" filter="url(#glow)"/>
+      <!-- Wing supports -->
+      <rect x="20" y="10" width="4" height="20" fill="#333"/>
+      <rect x="56" y="10" width="4" height="20" fill="#333"/>
+    </g>
+    
+    <!-- Main body with gradient -->
+    <path d="M -160 0 C -160 -10 -140 -25 -100 -30 L 100 -30 C 140 -25 160 -10 160 0 L 160 15 C 160 25 140 30 100 35 L -100 35 C -140 30 -160 25 -160 15 Z" 
+          fill="url(#carBodyGradient)" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
+    
+    <!-- Side pods -->
+    <ellipse cx="-50" cy="0" rx="40" ry="20" fill="#cc0000" opacity="0.8"/>
+    <ellipse cx="50" cy="0" rx="40" ry="20" fill="#cc0000" opacity="0.8"/>
+    
+    <!-- Cockpit with gradient -->
+    <linearGradient id="cockpitGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#333;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000;stop-opacity:1" />
+    </linearGradient>
+    <ellipse cx="0" cy="-15" rx="45" ry="30" fill="url(#cockpitGradient)" stroke="#666" stroke-width="2"/>
+    
+    <!-- Driver helmet with visor -->
+    <ellipse cx="0" cy="-15" rx="25" ry="20" fill="#fff"/>
+    <path d="M -25 -15 Q 0 -20 25 -15 Q 25 -10 20 -8 L -20 -8 Q -25 -10 -25 -15" fill="#1a1a1a" opacity="0.8"/>
+    <rect x="-15" y="-12" width="30" height="3" fill="#e10600"/>
+    
+    <!-- Front wing with detail -->
+    <g transform="translate(140, -10)">
+      <rect x="0" y="0" width="60" height="12" fill="url(#carbonFiber)" stroke="#e10600" stroke-width="1"/>
+      <rect x="5" y="-5" width="50" height="5" fill="#e10600" filter="url(#glow)"/>
+      <!-- End plates -->
+      <rect x="0" y="-5" width="3" height="17" fill="#333"/>
+      <rect x="57" y="-5" width="3" height="17" fill="#333"/>
+    </g>
+    
+    <!-- Racing details -->
+    <g>
+      <!-- Side stripe -->
+      <rect x="-150" y="-5" width="300" height="3" fill="#fff" opacity="0.8"/>
+      
+      <!-- Racing number circle -->
+      <circle cx="0" cy="0" r="25" fill="#fff" stroke="#000" stroke-width="3"/>
+      <text x="0" y="8" text-anchor="middle" font-family="Arial Black" font-size="32" font-weight="900" fill="#000">1</text>
+      
+      <!-- Sponsor logos (simplified) -->
+      <rect x="-80" y="5" width="20" height="8" fill="#ffd700" opacity="0.8"/>
+      <rect x="60" y="5" width="20" height="8" fill="#ffd700" opacity="0.8"/>
+      
+      <!-- Air intakes -->
+      <ellipse cx="-30" cy="-25" rx="8" ry="15" fill="#000" opacity="0.7"/>
+      <ellipse cx="30" cy="-25" rx="8" ry="15" fill="#000" opacity="0.7"/>
+    </g>
   </g>
   
-  <!-- Title -->
-  <text x="600" y="120" text-anchor="middle" font-family="Arial Black" font-size="72" font-weight="900" fill="#fff" letter-spacing="4">
+  <!-- Title with gradient and shadow -->
+  <defs>
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e10600;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <text x="600" y="120" text-anchor="middle" font-family="Arial Black" font-size="86" font-weight="900" fill="#000" opacity="0.3" transform="translate(3,3)">
+    F1 REACTION TEST
+  </text>
+  <text x="600" y="120" text-anchor="middle" font-family="Arial Black" font-size="86" font-weight="900" fill="url(#titleGradient)" letter-spacing="3">
     F1 REACTION TEST
   </text>
   
-  <!-- Subtitle -->
-  <text x="600" y="180" text-anchor="middle" font-family="Arial" font-size="36" fill="#e10600" font-weight="bold">
+  <!-- Subtitle with glow -->
+  <text x="600" y="180" text-anchor="middle" font-family="Arial" font-size="38" fill="#e10600" font-weight="bold" filter="url(#glow)">
     Test Your Racing Reflexes!
   </text>
   
-  <!-- Traffic lights -->
+  <!-- F1 Traffic lights with realistic look -->
   <g transform="translate(600, 480)">
-    <rect x="-150" y="-40" width="300" height="80" fill="#1a1a1a" stroke="#333" stroke-width="3" rx="10"/>
-    <!-- Red lights -->
-    <circle cx="-110" cy="0" r="25" fill="#ff0000" opacity="0.9"/>
-    <circle cx="-55" cy="0" r="25" fill="#ff0000" opacity="0.9"/>
-    <circle cx="0" cy="0" r="25" fill="#ff0000" opacity="0.9"/>
-    <circle cx="55" cy="0" r="25" fill="#ff0000" opacity="0.9"/>
-    <circle cx="110" cy="0" r="25" fill="#ff0000" opacity="0.9"/>
+    <!-- Light housing -->
+    <rect x="-160" y="-45" width="320" height="90" fill="#1a1a1a" stroke="#333" stroke-width="4" rx="15"/>
+    <rect x="-155" y="-40" width="310" height="80" fill="#0f0f0f" rx="12"/>
+    
+    <!-- Light holes -->
+    <g fill="#000">
+      <circle cx="-120" cy="0" r="28"/>
+      <circle cx="-60" cy="0" r="28"/>
+      <circle cx="0" cy="0" r="28"/>
+      <circle cx="60" cy="0" r="28"/>
+      <circle cx="120" cy="0" r="28"/>
+    </g>
+    
+    <!-- Red lights with glow -->
+    <g filter="url(#glow)">
+      <circle cx="-120" cy="0" r="25" fill="#ff0000" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-60" cy="0" r="25" fill="#ff0000" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="0" r="25" fill="#ff0000" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="60" cy="0" r="25" fill="#ff0000" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="120" cy="0" r="25" fill="#ff0000" opacity="0.9">
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="2s" begin="1.6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
   </g>
   
-  <!-- Call to action -->
-  <text x="600" y="580" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" opacity="0.8">
+  <!-- Call to action with style -->
+  <rect x="400" y="560" width="400" height="40" fill="#000" opacity="0.6" rx="20"/>
+  <text x="600" y="585" text-anchor="middle" font-family="Arial" font-size="26" fill="#fff" font-weight="bold">
     When lights go out, GO GO GO!
   </text>
 </svg>
