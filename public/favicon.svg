@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Black background -->
+  <rect width="32" height="32" fill="#000000"/>
+  
+  <!-- Red racing stripe -->
+  <rect x="0" y="0" width="32" height="6" fill="#e10600"/>
+  <rect x="0" y="26" width="32" height="6" fill="#e10600"/>
+  
+  <!-- Checkered flag pattern -->
+  <g opacity="0.3">
+    <rect x="0" y="6" width="8" height="5" fill="#ffffff"/>
+    <rect x="16" y="6" width="8" height="5" fill="#ffffff"/>
+    <rect x="8" y="11" width="8" height="5" fill="#ffffff"/>
+    <rect x="24" y="11" width="8" height="5" fill="#ffffff"/>
+    <rect x="0" y="16" width="8" height="5" fill="#ffffff"/>
+    <rect x="16" y="16" width="8" height="5" fill="#ffffff"/>
+    <rect x="8" y="21" width="8" height="5" fill="#ffffff"/>
+    <rect x="24" y="21" width="8" height="5" fill="#ffffff"/>
+  </g>
+  
+  <!-- F1 text -->
+  <text x="16" y="21" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" font-style="italic" text-anchor="middle" fill="#ffffff" stroke="#e10600" stroke-width="0.5">F1</text>
+</svg>
